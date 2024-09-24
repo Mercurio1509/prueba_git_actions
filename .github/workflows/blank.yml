@@ -11,8 +11,18 @@ on:
 
 jobs: 
   build:
+    env:
+      platform: OpenBMC
+      region: Americas
+      account: 123456789
     runs-on: ubuntu-latest
 
     steps:
-      - name : "Mostrar mensaje"
+      - name : "Show Message"
         run: echo "Hola Mundo"
+
+      -name: "Showing Env variables"
+        run: |
+          echo "Platform: ${{env.platform}}"
+          echo "Region: ${{env.region}}"
+          echo "Account: ${{env.account}}"
