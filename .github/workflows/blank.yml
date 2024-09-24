@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name : "Show Message"
+      - name: "Show Message"
         run: echo "Hola Mundo"
 
-      -name: "Showing Env variables"
+      - name: "Showing Env variables"
         run: |
           echo "Platform: ${{env.platform}}"
           echo "Region: ${{env.region}}"
