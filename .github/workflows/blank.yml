@@ -55,7 +55,8 @@ jobs:
 
       - name: Verify C/C++ files exist
         run: |
-          if ! find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep .; then
+          FILE_COUNT=$(find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | wc -l)
+          if [ "$FILE_COUNT" -eq 0 ]; then
             echo "No C/C++ files found. Skipping Cppcheck."
             exit 0
           fi
