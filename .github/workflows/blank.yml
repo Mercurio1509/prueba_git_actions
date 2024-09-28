@@ -73,15 +73,15 @@ jobs:
           FILE_COUNT=$(find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | wc -l)
           if [ "$FILE_COUNT" -eq 0 ]; then
             echo "No C/C++ files found. Skipping Cppcheck."
-            echo "cpp_needed=false" >> $GITHUB_OUTPUT_2
+            echo "cpp_needed=false" >> $GITHUB_OUTPUT
           else
-            echo "cpp_needed=true" >> $GITHUB_OUTPUT_2
+            echo "cpp_needed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Install Cppcheck
-        if: steps.check_files.outputs.cppcheck_needed == 'true'
+        if: steps.check_files.outputs.cpp_needed == 'true'
         run: sudo apt-get install cppcheck
 
       - name: Run Cppcheck
-        if: steps.check_files.outputs.cppcheck_needed == 'true'
+        if: steps.check_files.outputs.cpp_needed == 'true'
         run: cppcheck --enable=all --inconclusive --error-exitcode=1 .
