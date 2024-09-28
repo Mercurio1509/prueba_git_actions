@@ -53,8 +53,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Verify C/C++ files exist
+        run: |
+          if ! find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep .; then
+            echo "No C/C++ files found. Skipping Cppcheck."
+            exit 0
+          fi
+
       - name: Install Cppcheck
         run: sudo apt-get install cppcheck
 
       - name: Run Cppcheck
-        run: cppcheck --enable=all --inconclusive --error-exitcode=1 .  
+        run: cppcheck --enable=all --inconclusive --error-exitcode=1 .
