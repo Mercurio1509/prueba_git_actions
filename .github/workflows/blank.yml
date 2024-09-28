@@ -33,7 +33,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Verify C/C++ files exist
+      - name: Verify Python files exist
         id: check_files_py
         run: |
           FILE_COUNT_PY=$(find . -name "*.py" | wc -l)
@@ -73,9 +73,9 @@ jobs:
           FILE_COUNT=$(find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | wc -l)
           if [ "$FILE_COUNT" -eq 0 ]; then
             echo "No C/C++ files found. Skipping Cppcheck."
-            echo "cpp_needed=false" >> $GITHUB_OUTPUT
+            echo "cpp_needed=false" >> $GITHUB_OUTPUT_2
           else
-            echo "cpp_needed=true" >> $GITHUB_OUTPUT
+            echo "cpp_needed=true" >> $GITHUB_OUTPUT_2
           fi
 
       - name: Install Cppcheck
