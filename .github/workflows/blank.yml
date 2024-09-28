@@ -59,9 +59,9 @@ jobs:
           FILE_COUNT=$(find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | wc -l)
           if [ "$FILE_COUNT" -eq 0 ]; then
             echo "No C/C++ files found. Skipping Cppcheck."
-            echo "::set-output name=cppcheck_needed::false"
+            echo "cpp_needed=false" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=cppcheck_needed::true"
+            echo "cpp_needed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Install Cppcheck
