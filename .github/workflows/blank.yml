@@ -33,17 +33,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Verify C/C++ files exist
+        id: check_files_py
+        run: |
+          FILE_COUNT_PY=$(find . -name "*.py" | wc -l)
+          if [ "$FILE_COUNT_PY" -eq 0 ]; then
+            echo "No Python files found. Skipping flake8."
+            echo "py_needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "py_needed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Set up Python
+        if: steps.check_files_py.outputs.py_needed == 'true'
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
       - name: Install dependencies
+        if: steps.check_files_py.outputs.py_needed == 'true'
         run: |
           python -m pip install --upgrade pip
           pip install flake8
 
       - name: Run Flake8
+        if: steps.check_files_py.outputs.py_needed == 'true'
         run: flake8 .
 
   cppcheck:
