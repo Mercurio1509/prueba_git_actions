@@ -44,4 +44,17 @@ jobs:
           pip install flake8
 
       - name: Run Flake8
-        run: flake8 .  
+        run: flake8 .
+
+  cppcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Cppcheck
+        run: sudo apt-get install cppcheck
+
+      - name: Run Cppcheck
+        run: cppcheck --enable=all --inconclusive --error-exitcode=1 .  
